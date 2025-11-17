@@ -1,0 +1,11 @@
+// path 정의해주는 파일
+
+const path = require('path');
+
+module.exports = {
+    // path.resolve() : 상대경로를 절대경로로 반환
+    config: path.resolve('databases', 'configs', 'sequelize-cli.config.js'),
+    'models-path': path.resolve('app', 'models'),
+    'seeders-path': path.resolve('databases', 'seeders'),
+    'migrations-path': path.resolve('databases', 'migrations'),
+}
