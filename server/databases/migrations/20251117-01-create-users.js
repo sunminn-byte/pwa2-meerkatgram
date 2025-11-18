@@ -34,9 +34,10 @@ const attributes = {
   },
   nick: {
     field: 'nick',
-    type: DataTypes.STRING(15),
+    type: DataTypes.STRING(20),
     allowNull: false,
     unique: true,
+    comment: '닉네임',
   },
   provider: { // 소셜로그인시 다른 소셜로 중복 가입되지 않도록 하는 처리
     field: 'provider',
