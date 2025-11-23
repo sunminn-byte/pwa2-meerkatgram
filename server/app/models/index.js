@@ -1,5 +1,5 @@
 /**
- * @file app/models/index.js
+ * @file app/models/
  * @description Sequelize 인스턴스 생성 File
  * 251120 v1.0.0 jung init
  */
@@ -49,6 +49,11 @@ db.PushSubscription = PushSubscription.init(sequelize);
 db.Notification = Notification.init(sequelize);
 
 // 모델 관계 설정
-
+User.associate(db);
+Post.associate(db);
+Comment.associate(db);
+Like.associate(db);
+Notification.associate(db);
+PushSubscription.associate(db);
 
 export default db;

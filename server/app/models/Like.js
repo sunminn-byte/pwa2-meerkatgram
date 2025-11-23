@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import { DataTypes } from 'sequelize';
 
 const modelName = 'Like'; // 모델명(JS(프로그래밍단) 내부에서 사용)
+const tableName = 'likes';
 
 // 컬럼 정의
 const attributes = {
@@ -82,7 +83,8 @@ const Like = {
     return define;
   },
   associate: (db) => {
-
+    db.Like.belongsTo(db.User, { targetKey: 'id', foreignKey: 'userId', as: 'author' });
+    db.Like.belongsTo(db.Post, { targetKey: 'id', foreignKey: 'postId', as: 'post' });
   },
 }
 

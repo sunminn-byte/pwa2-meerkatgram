@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import { DataTypes } from 'sequelize';
 
 const modelName = 'PushSubscription'; // 모델명(JS(프로그래밍단) 내부에서 사용)
+const tableName = 'push_subscriptions';
 
 // 컬럼 정의
 const attributes = {
@@ -83,7 +84,7 @@ const PushSubscription = {
     return define;
   },
   associate: (db) => {
-
+    db.PushSubscription.belongsTo(db.User, { targetKey: 'id', foreignKey: 'userId', as: 'author' });
   },
 }
 
