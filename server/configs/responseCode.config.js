@@ -48,8 +48,34 @@ const BAD_REQUEST_ERROR = {
 }
 Object.freeze(BAD_REQUEST_ERROR);
 
+/**
+ * DB 에러 응답 코드 설정
+ * @type {ResponseCodeConfig}
+ */
+const DB_ERROR = {
+  code: 'E80',
+  msg: 'DB Error',
+  info: '서비스 제공 상태가 원활하지 않습니다.',
+  status: 500,
+}
+Object.freeze(DB_ERROR);
+
+/**
+ * 시스템 에러 응답 코드 설정
+ * @type {ResponseCodeConfig}
+ */
+const SYSTEM_ERROR = { // 예상하지 못했던 에러들을 처리
+  code: 'E99',
+  msg: 'Application Error',
+  info: '서비스 제공 상태가 원활하지 않습니다.',
+  status: 500,
+}
+Object.freeze(SYSTEM_ERROR);
+
 export {
   SUCCESS,
   NOT_REGISTERD_ERROR,
   BAD_REQUEST_ERROR,
+  DB_ERROR,
+  SYSTEM_ERROR,
 }
