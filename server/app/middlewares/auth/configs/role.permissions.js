@@ -1,0 +1,30 @@
+/**
+ * @file app/middewares/auth/configs/role.permissions.js
+ * @description 요청별 접근 권한 설정 파일
+ * 251126 v1.0.0 jung init
+ */
+
+import ROLE from "./role.enum.js";
+const { ADMIN, NORMAL, SUPER } = ROLE;
+
+// 인증 및 인가가 필요한 요청만 정의
+const ROLE_PERMISSIONS = {
+  GET: [
+    // /api/posts/:id 를 검증하는 정규식
+    { path: /^\/api\/posts\/[0-9]+$/, roles: [NORMAL, SUPER] },
+  ],
+  POST: [
+    { path: /^\/api\/auth\/reissue$/, roles: [NORMAL, SUPER] },
+    { path: /^\/api\/posts$/, roles: [NORMAL, SUPER] },
+  ],
+  PUT: [
+
+  ],
+  DELETE: [
+
+  ]
+}
+
+Object.freeze(ROLE_PERMISSIONS);
+
+export default ROLE_PERMISSIONS;

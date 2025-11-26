@@ -62,6 +62,15 @@ function generateRefreshToken(user) {
   return generateToken(payload, parseInt(process.env.JWT_REFRESH_TOKEN_EXPIRY));
 }
 
+/**
+ * 
+ * @param {import("express".Request)} req 
+ * @returns {string} token
+ */
+function getBearerToken(req) {
+
+}
+
 // 내보내기 (private한 generateToken은 내보내기 안함)
 export default {
   generateAccessToken,
