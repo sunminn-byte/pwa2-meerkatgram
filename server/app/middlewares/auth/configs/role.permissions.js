@@ -12,16 +12,20 @@ const ROLE_PERMISSIONS = {
   GET: [
     // /api/posts/:id 를 검증하는 정규식
     { path: /^\/api\/posts\/[0-9]+$/, roles: [NORMAL, SUPER] },
+    { path: /^\/api\/comments\/[0-9]+\/[0-9]+$/, roles: [NORMAL, SUPER] },
   ],
   POST: [
     { path: /^\/api\/auth\/reissue$/, roles: [NORMAL, SUPER] },
     { path: /^\/api\/posts$/, roles: [NORMAL, SUPER] },
+    { path: /^\/api\/comments$/, roles: [NORMAL, SUPER] },
+    { path: /^\/api\/files\/posts$/, roles: [NORMAL, SUPER] },
+    { path: /^\/api\/files\/profiles$/, roles: [NORMAL, SUPER] },
   ],
   PUT: [
-
+    { path: /^\/api\/users$/, roles: [NORMAL, SUPER] },
   ],
   DELETE: [
-
+    { path: /^\/api\/posts\/[0-9]+$/, roles: [NORMAL, SUPER] },
   ]
 }
 

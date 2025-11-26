@@ -23,7 +23,7 @@ function setCookie(res, cookieName, cookieValue, ttl, httpOnlyFlg = true, secure
     cookieName,
     cookieValue,
     {
-      expires: dayjs().add(ttl, 'millisecond').toDate(), // 현재시간(dayjs)에서 밀리second만큼 더해서 date객체로 반환(toDate)
+      expires: dayjs().add(ttl, 'second').toDate(), // 현재시간(dayjs)에서 밀리second만큼 더해서 date객체로 반환(toDate)
       httpOnly: httpOnlyFlg,
       secure: secureFlg,
       sameSite: 'none',
