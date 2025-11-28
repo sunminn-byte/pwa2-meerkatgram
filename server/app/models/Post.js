@@ -44,7 +44,7 @@ const attributes = {
     type: DataTypes.DATE,
     allowNull: true,
     get() {
-      const val = this.getDataValue('deletedAt');
+      const val = this.getDataValue('createdAt');
       if(!val) {
         return null;
       }
@@ -56,7 +56,7 @@ const attributes = {
     type: DataTypes.DATE,
     allowNull: true,
     get() {
-      const val = this.getDataValue('deletedAt');
+      const val = this.getDataValue('updatedAt');
       if(!val) {
         return null;
       }
