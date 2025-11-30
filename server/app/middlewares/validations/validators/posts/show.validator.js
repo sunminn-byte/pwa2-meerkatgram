@@ -4,6 +4,6 @@
  * 251128 v1.0.0 jung init
  */
 
-import { id } from "../../fields/post.fields.js";
+import { id } from "../../fields/post.field.js";
 
 export default [id];

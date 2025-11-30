@@ -4,6 +4,6 @@
  * 251128 v1.0.0 jung init
  */
 
-import { page } from "../../fields/post.fields.js";
+import { page } from "../../fields/post.field.js";
 
 export default [page];
