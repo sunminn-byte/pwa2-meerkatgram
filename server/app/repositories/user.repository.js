@@ -11,7 +11,7 @@ const { User } = db;
  * 이메일로 유저 검색
  * @param {import("sequelize").Transaction} t 
  * @param {string} email 
- * @returns 
+ * @returns {Promise<import("../models/User.js").User>}
  */
 // 아래에서 transacion을 t로 표시
 async function findByEmail(t = null, email) {
@@ -31,7 +31,7 @@ async function findByEmail(t = null, email) {
  * 유저 모델 인스턴스로 save 처리
  * @param {import("sequelize").Transaction} t 
  * @param {import("../models/index.js").User} user 
- * @returns 
+ * @returns {Promise<import("../models/User.js").User>}
  */
 async function save(t = null, user) {
   return await user.save({ transacion: t });

@@ -11,6 +11,11 @@ import { NOT_REGISTERED_ERROR } from '../../configs/responseCode.config.js';
 import jwtUtil from '../utils/jwt/jwt.util.js';
 import db from '../models/index.js';
 
+/**
+ * 로그인
+ * @param {{emali: string, password: string}}} body 
+ * @returns {Promise<import("../models/User.js").User>}
+ */
 async function login(body) {
   // 트랜잭션 처리가 필요하다면 아래 틀 안에 넣으면 됨.
   // 모르겠으면 외우기

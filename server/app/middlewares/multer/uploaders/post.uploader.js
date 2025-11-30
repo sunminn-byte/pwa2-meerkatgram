@@ -9,6 +9,7 @@ import fs from "fs";
 import dayjs from "dayjs";
 import myError from "../../../errors/customs/my.error.js";
 import { BAD_FILE_ERROR } from "../../../../configs/responseCode.config.js";
+import pathUtil from '../../../utils/path/path.util.js';
 
 /**
  * 게시글 이미지 업로더 처리 미들웨어
@@ -25,11 +26,13 @@ export default function(req, res, next) {
     storage: multer.diskStorage({
       // 파일 저장 경로 설정
       destination(req, file, callback) { // file: 유저가 전달한 파일 객체
+        const fullPath = pathUtil.getPostsImagePath();
+
         // 저장 디렉토리 설정
-        if(!fs.existsSync(process.env.FILE_POST_IMAGE_PATH)) { // 파일시스템의 existsSync로 디렉토리 존재 여부 확인
+        if(!fs.existsSync(fullPath)) { // 파일시스템의 existsSync로 디렉토리 존재 여부 확인
           // 해당 디렉토리 없으면 생성 처리
           fs.mkdirSync(
-            process.env.FILE_POST_IMAGE_PATH,
+            fullPath,
             {
               recursive: true, // 중간(에 없는) 디렉토리까지 모두 생성
               mode: 0o755      // 디렉토리의 권한 설정 rwxr-xr-x ((읽기, 쓰기, 실행)을 8진수로 표현)
@@ -37,7 +40,7 @@ export default function(req, res, next) {
           );
         }
         // multer가 자동으로 생성하는 callback함수 (error발생시 아래에서 예외처리)
-        callback(null, process.env.FILE_POST_IMAGE_PATH);
+        callback(null, fullPath);
       },
       // 파일명 설정
       filename(req, file, callback) { // file: 유저가 전달한 파일 객체
