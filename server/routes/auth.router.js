@@ -18,8 +18,9 @@ const authRouter = express.Router();
 // });
 // auth.controller.js에서 만들어서 아래와 같이 적용
 authRouter.post('/login', loginValidator, validationHandler, authController.login);
-authRouter.post('/reissue', authMiddleware, (req, res, next) => {
-  return res.send('reissue test');
-});
+// authRouter.post('/reissue', authMiddleware, (req, res, next) => {
+//   return res.send('reissue test');
+// });
+authRouter.post('/reissue', authController.reissue);
 
 export default authRouter;

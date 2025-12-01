@@ -7,7 +7,7 @@
 import bcrypt from 'bcrypt';
 import userRepository from "../repositories/user.repository.js";
 import myError from '../errors/customs/my.error.js';
-import { NOT_REGISTERED_ERROR } from '../../configs/responseCode.config.js';
+import { NOT_REGISTERED_ERROR, REISSUE_ERROR } from '../../configs/responseCode.config.js';
 import jwtUtil from '../utils/jwt/jwt.util.js';
 import db from '../models/index.js';
 
@@ -56,11 +56,44 @@ async function login(body) {
       refreshToken,
       user
     }
-
   });
+}
 
+/**
+ * 토큰 재발급 처리
+ * @param {string} token 
+ */
+async function reissue(token) {
+  // 토큰 검증 및 유저id 획득
+  const claims = jwtUtil.getClaimsWithVerifyToken(token);
+  const userId = claims.sub;
+
+  return await db.sequelize.transaction(async t => {
+    // 유저 정보 획득
+    const user = await userRepository.findByPk(t, userId);
+
+    // 토큰 일치 검증
+    if(token !== user.refreshToken) {
+      throw myError('리프레쉬 토큰 불일치', REISSUE_ERROR);
+    }
+
+    // JWT 생성
+    const accessToken = jwtUtil.generateAccessToken(user);
+    const refreshToken = jwtUtil.generateRefreshToken(user);
+
+    // 리프레쉬 토큰 DB에 저장
+    user.refreshToken = refreshToken;
+    await userRepository.save(t, user);
+
+    return {
+      accessToken,
+      refreshToken,
+      user
+    }
+  });
 }
 
 export default {
   login,
+  reissue,
 };
