@@ -40,18 +40,20 @@ export const image = body('image')
   .withMessage('이미지는 필수 항목입니다.')
   .bail()
   .custom(val => {
+    // 우리 앱의 게시글 이미지에 접근하는 `도메인 + path`가 맞는지 확인
     if(!val.startsWith(`${process.env.APP_URL}${process.env.ACCESS_FILE_POST_IMAGE_PATH}`)) {
-      return false;
+      return false; // 아니면 false가 되어 withMessage 실행
     }
 
-    return true;
+    return true; // 맞으면 통과
   })
-  .withMessage('허용하지 않는 이미지 경로입니다.')
+  .withMessage('허용하지 않는 이미지 경로입니다.') // 앞의 처리가 false일 때 실행
   .bail()
   .custom(val => {
-    const splitPath = val.split('/');
+    // 실제 이미지 파일이 있는지 검증 처리
+    const splitPath = val.split('/'); // 받은 값(val)을 '/' 기준으로 쪼개기
     const fullPath = path.join(pathUtil.getPostsImagePath(), splitPath[splitPath.length - 1]);
-    console.log(fullPath);
+    
     if(!fs.existsSync(fullPath)) {
       return false;
     }

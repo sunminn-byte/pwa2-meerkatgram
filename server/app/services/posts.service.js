@@ -41,7 +41,10 @@ async function show(id) {
  * @returns {Promise<import("../models/Post.js").Post>}
  */
 async function create(data) {
-  return await postRepository.create(null, data);
+  return await db.sequelize.transaction(async  t => {
+    return await postRepository.create(null, data);
+  });
+  // return await postRepository.create(null, data);
 }
 
 /**
@@ -51,9 +54,9 @@ async function create(data) {
  */
 async function destroy({ userId, postId }) {
   // 트랜잭션 시작
-  return db.sequelize.transaction(async t => {
+  return await db.sequelize.transaction(async t => {
     // (게시글 작성자 일치 확인용)
-    const post = await postRepository.findByPk(t, postId);
+    const post = await postRepository.findByPk(t, postId); // 게시글 가져오기
 
     // 게시글 작성자 일치 확인
     if(post.userId !== userId) {
@@ -67,9 +70,9 @@ async function destroy({ userId, postId }) {
     await likeRepository.destroy(t, postId);
     
     // 게시글 삭제
+    // 부모테이블이 가장 마지막에 삭제되어야 함
     await postRepository.destroy(t, postId);
-  });
-  
+  });  
 }
 
 export default {
