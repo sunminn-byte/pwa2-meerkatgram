@@ -4,13 +4,13 @@
  * 251128 v1.0.0 jung init
  */
 
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import fs from 'fs';
 import pathUtil from "../../../utils/path/path.util.js";
 import path from "path";
 
 // 페이지 필드
-export const page = body('page')
+export const page = query('page')
   .trim()
   .optional()
   .isNumeric()

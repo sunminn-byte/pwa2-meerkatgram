@@ -20,11 +20,25 @@ import { createBaseResponse } from "../utils/createBaseResponse.util.js";
  */
 async function index(req, res, next) {
   try {
-    const page = req.body?.page || 1; // page가 null이면 1
+    // const page = req.query?.page || 1; // page가 null이면 1
+    const page = req.query?.page ? parseInt(req.query.page) : 1;
 
-    const result = await postsService.pagination(page);
+    // const result = await postsService.pagination(page);
+    const { count, rows } = await postsService.pagination(page);
 
-    return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, result));
+    // const responseData = {
+    //   page: page,
+    //   limit: 6,
+    //   posts: result,
+    // };
+    const responseData = {
+      page: page,
+      limit: 6,
+      count: count,
+      posts: rows,
+    };
+
+    return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, responseData));
   } catch(error) {
     return next(error);
   }

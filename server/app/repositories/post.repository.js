@@ -14,9 +14,7 @@ const {sequelize, Post, Comment} = db;
  * @returns {Promise<Array<import("../models/Post.js").Post>>}
  */
 async function pagination(t = null, data) {
-  return await Post.findAll(
-    // data,
-    // data가 헷갈리며 아래처럼 직접 입력해도 됨
+  return await Post.findAndCountAll(
     {
       order: [
         ['createdAt', 'DESC'],
@@ -24,12 +22,26 @@ async function pagination(t = null, data) {
         ['id', 'ASC']
       ],
       limit: data.limit,
-      offset: data.offset
-    },
-    {
+      offset: data.offset,
       transaction: t,
-    }
-  );
+    });
+    
+  // return await Post.findAll(
+  //   // data,
+  //   // data가 헷갈리면 아래처럼 직접 입력해도 됨
+  //   {
+  //     order: [
+  //       ['createdAt', 'DESC'],
+  //       ['updatedAt', 'DESC'],
+  //       ['id', 'ASC']
+  //     ],
+  //     limit: data.limit,
+  //     offset: data.offset
+  //   },
+  //   {
+  //     transaction: t,
+  //   }
+  // );
 }
 
 /**
