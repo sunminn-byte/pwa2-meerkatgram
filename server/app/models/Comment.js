@@ -5,6 +5,7 @@
  */
 
 import dayjs from 'dayjs';
+import { sourceMapsEnabled } from 'process';
 import { DataTypes } from 'sequelize';
 
 const modelName = 'Comment'; // 모델명(JS(프로그래밍단) 내부에서 사용)
@@ -96,7 +97,9 @@ const Comment = {
   },
   associate: (db) => {
     db.Comment.belongsTo(db.User, { sourceKey: 'id', foreignKey: 'userId', as: 'author' });
-    db.Comment.belongsTo(db.Post, { sourceKey: 'id', foreignKey: 'postId', as: 'post' });  },
+    db.Comment.belongsTo(db.Post, { sourceKey: 'id', foreignKey: 'postId', as: 'post' });
+    db.Comment.hasMany(db.Comment, { sourceMapsEnabled: 'id', foreignKey: 'replyId', as: 'replies' });
+  },
 }
 
 export default Comment;
