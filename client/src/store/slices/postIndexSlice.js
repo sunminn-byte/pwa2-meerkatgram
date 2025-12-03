@@ -4,6 +4,7 @@ import { postIndexThunk } from '../thunks/postIndexThunk.js';
 const initialState = {
   list: null,
   page: 0,
+  isLasted: false,
 }
 
 const slice = createSlice({
@@ -18,7 +19,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(postIndexThunk.fulfilled, (state, action) => {
-        const { posts, page } = action.payload.data;
+        const { posts, page, count, limit } = action.payload.data;
 
         // 리스트가 비어있는지 체크
         if(state.list) {
@@ -33,6 +34,8 @@ const slice = createSlice({
         // state.page = action.payload.data.page;
         state.page = page;
 
+        // 마지막 페이지 여부 플래그 저장
+        state.isLasted = (page * limit) >= count;
       })
   },
 });
