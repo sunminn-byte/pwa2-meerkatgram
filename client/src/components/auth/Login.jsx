@@ -36,6 +36,10 @@ export default function Login() {
   //   }
   // }
 
+  function handleSocial(provider) {
+    window.location.replace(`/api/auth/social/${provider}`);
+  }
+
   return (
     <>
       <form className="login-container" onSubmit={handleLogin}>
@@ -43,7 +47,7 @@ export default function Login() {
         <input type="password" className='input-big-border' onChange={ e => { setPassword(e.target.value) } } placeholder='password' />
         <button type="submit" className="btn-big bg-gray">Log in</button>
         <div className="text-on-line">or</div>
-        <button type="button" className="btn-big bg-img-kakao"></button>
+        <button type="button" className="btn-big bg-img-kakao" onClick={() => {handleSocial('kakao')}}></button>
         <button type="button" className="btn-big bg-light">Sign up</button>
       </form>
     </>

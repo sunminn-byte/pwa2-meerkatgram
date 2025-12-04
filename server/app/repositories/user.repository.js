@@ -47,8 +47,13 @@ async function findByPk(t = null, id) {
   return await User.findByPk(id, { transaction: t });
 }
 
+async function create(t = null, data) {
+  return await User.create(data, { transacion: t });
+}
+
 export default {
   findByEmail,
   save,
   findByPk,
+  create,
 }
