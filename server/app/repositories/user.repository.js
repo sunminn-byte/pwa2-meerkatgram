@@ -4,6 +4,7 @@
  * 251120 v1.0.0 jung init
  */
 
+import { where } from 'sequelize';
 import db from '../models/index.js';
 const { User } = db;
 
@@ -51,9 +52,39 @@ async function create(t = null, data) {
   return await User.create(data, { transacion: t });
 }
 
+async function logout(t = null, id) {
+  return await User.update(
+    {
+      refreshToken: null
+    },
+    {
+      where: {
+        id: id
+      },
+      transacion: t
+    }
+  );
+
+  // 관리를 편하게 하기 위해 아래(평문)이 아니라 위(orm)방식으로 만듦.
+  // // 특정 유저 리프레쉬토큰 null로 갱신
+  // // UPDATE users SET refresh_token = null, updated_at = NOW() WHERE id = ?
+  // const query = 
+  //       ' UPDATE users '
+  //     + ' SET '
+  //     + '   refresh_token = null '
+  //     + '   ,updated_at = NOW() '
+  //     + ' WHERE '
+  //     + '   id = ? '
+  //   ;
+  // const values = [id];
+
+  // db.sequelize.query({query, values});
+}
+
 export default {
   findByEmail,
   save,
   findByPk,
   create,
+  logout,
 }

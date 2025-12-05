@@ -66,7 +66,7 @@ export default function(req, res, next) {
       fileSize: parseInt(process.env.FILE_USER_PROFILE_SIZE),
     }
 
-  }).single('image');
+  }).single('profile');
 
 
   // 예외 처리
