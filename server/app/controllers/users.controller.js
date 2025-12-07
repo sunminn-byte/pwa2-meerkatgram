@@ -39,6 +39,6 @@ async function store(req, res, next) {
 // ------------------------------
 // export
 // ------------------------------
-export const authController = {
+export default {
   store,
 };

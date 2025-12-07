@@ -26,10 +26,13 @@ import fs from 'fs';
 //   .withMessage('영어대소문자·숫자·!·@·#·$, 8~20자 허용')
 // ;
 
-const email = body('email').trim()
-  .notEmpty().withMessage('이메일은 필수 항목입니다.')
+const email = body('email')
+  .trim()
+  .notEmpty()
+  .withMessage('이메일은 필수 항목입니다.')
   .bail()
-  .isEmail().withMessage('유효한 이메일을 입력해주세요.')
+  .isEmail()
+  .withMessage('유효한 이메일을 입력해주세요.')
 ;
 
 const password = body('password')

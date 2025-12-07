@@ -4,6 +4,7 @@
  * 251205 v1.0.0 jung init
  */
 
-import { email, password, passwordChk, nick, profile } from "../../fields/user.field.js";
+import userFields from "../../fields/user.field.js";
+const { profile, email, password, passwordChk, nick } = userFields;
 
-export default [email, password, passwordChk, nick, profile];
+export default [profile, email, password, passwordChk, nick];
