@@ -72,7 +72,7 @@ self.addEventListener('notificationclick', e => {
   // Origin 획득
   const origin = self.location.origin; // 도메인 주소
 
-  e.waitUntill(
+  e.waitUntil(
     // clients의 구조
     // [
     //   WindowClient = {
